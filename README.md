@@ -19,7 +19,7 @@ The project tests our skills in **backend data processing, database management, 
 - Kevine Uwisanga
 
 ##  Week 1 Goals  
-- Set up the shared GitHub repository ✅  
+- Set up the shared GitHub repository 
 - Define the system architecture  
 - Organize tasks 
 
