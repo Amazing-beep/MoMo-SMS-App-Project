@@ -24,7 +24,6 @@ The project tests our skills in **backend data processing, database management, 
 - Organize tasks 
 
 ##  Scrum Board
-google.com/url?sa=j&url=https%3A%2F%2Fwww.canva.com%2Fdesign%2FDAGyfWR9wJs%2F8bskmmh4jSeziYRQmtJHNQ%2Fedit%3Futm_content%3DDAGyfWR9wJs%26utm_campaign%3Ddesignshare%26utm_medium%3Dlink2%26utm_source%3Dsharebutton&uct=1725561903&usg=lIrWnrlKpoDavw3jBNR-SNT6Xlw.&opi=73833047&source=chat
-
+https://www.canva.com/design/DAGyfWR9wJs/8bskmmh4jSeziYRQmtJHNQ/edit?utm_content=DAGyfWR9wJs&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 ## System Architecture
 
