@@ -15,10 +15,10 @@ The project tests our skills in **backend data processing, database management, 
 
 ## 👥 Team Members  
 - Nkhomotabo Amazing Mkhonta  
-- [Member 2 Name]  
-- [Member 3 Name]  
+- Tito Sibo
+- Kevine Uwisanga
 
-## 🚀 Week 1 Goals  
+##  Week 1 Goals  
 - Set up the shared GitHub repository ✅  
 - Define the system architecture  
-- Organize tasks using Agile practices  
+- Organize tasks 
