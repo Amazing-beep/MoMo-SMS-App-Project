@@ -26,4 +26,4 @@ The project tests our skills in **backend data processing, database management, 
 ##  Scrum Board
 https://www.canva.com/design/DAGyfWR9wJs/8bskmmh4jSeziYRQmtJHNQ/edit?utm_content=DAGyfWR9wJs&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 ## System Architecture
-
+https://miro.com/app/board/uXjVJK8Jys8=/
