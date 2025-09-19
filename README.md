@@ -125,7 +125,7 @@ MoMo-SMS-App-Project/
 
 ##  Project Links
 - **Scrum Board:** https://www.canva.com/design/DAGyfWR9wJs/8bskmmh4jSeziYRQmtJHNQ/edit
-- **System Architecture:** https://miro.com/app/board/uXjVJGH_STo=/
+- **System Architecture:** https://lucid.app/lucidchart/aa27b08c-f4e7-45ab-8898-00a84e965f73/edit?invitationId=inv_3be7f2d7-acf7-4679-a374-0f3010810351
 
 ## Getting Started
 
