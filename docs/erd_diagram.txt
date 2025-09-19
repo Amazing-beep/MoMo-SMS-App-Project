@@ -1,0 +1,132 @@
+MoMo SMS Data Processing System - Entity Relationship Diagram
+=============================================================
+Team: Group 7 - Amazing Mkhonta, Tito Sibo, Kevine Uwisanga
+Date: January 18, 2024
+
+NOTE: This is a text representation of our ERD. The actual visual diagram 
+was created using Draw.io and should be saved as erd_diagram.png in this folder.
+
+ENTITIES AND RELATIONSHIPS:
+==========================
+
+┌─────────────────┐         ┌──────────────────────┐         ┌─────────────────┐
+│     USERS       │         │ USER_PROVIDER_ACCTS  │         │SERVICE_PROVIDERS│
+│ (Main Entity)   │         │   (Junction Table)   │         │                 │
+├─────────────────┤         ├──────────────────────┤         ├─────────────────┤
+│ PK: user_id     │◄───────►│ PK: account_id       │◄───────►│ PK: provider_id │
+│    phone_number │         │ FK: user_id          │         │    provider_name│
+│    full_name    │         │ FK: provider_id      │         │    provider_code│
+│    id_number    │         │    account_number    │         │    api_endpoint │
+│    email        │         │    account_balance   │         │    is_active    │
+│    account_status│        │    account_limit     │         │    country_code │
+│    kyc_status   │         │    is_primary        │         └─────────────────┘
+│    registration_│         │    status            │
+│    last_active  │         └──────────────────────┘
+└─────────────────┘
+         │                                                    
+         │ 1:M (sender)                                       
+         ▼                                                    
+┌─────────────────┐         ┌──────────────────────┐         ┌─────────────────┐
+│  TRANSACTIONS   │         │ TRANSACTION_CATEGORIES│         │   SYSTEM_LOGS   │
+│ (Central Entity)│◄───────►│                      │         │                 │
+├─────────────────┤         ├──────────────────────┤         ├─────────────────┤
+│ PK: trans_id    │         │ PK: category_id      │         │ PK: log_id      │
+│    trans_ref    │         │    category_name     │         │ FK: transaction_│
+│ FK: sender_id   │         │    category_code     │         │ FK: user_id     │
+│ FK: receiver_id │         │    description       │         │    log_level    │
+│    receiver_phone│        │    is_active         │         │    log_category │
+│ FK: category_id │         │    fee_percentage    │         │    message      │
+│ FK: provider_id │         │    minimum_fee       │         │    additional_  │
+│    amount       │         │    maximum_fee       │         │    source_system│
+│    currency     │         └──────────────────────┘         │    ip_address   │
+│    trans_fee    │                                          │    created_at   │
+│    net_amount   │                                          └─────────────────┘
+│    trans_status │                  
+│    trans_type   │         ┌──────────────────────┐         ┌─────────────────┐
+│    description  │         │ FAILED_TRANSACTIONS  │         │  USER_SESSIONS  │
+│    balance_before│        │                      │         │                 │
+│    balance_after │         ├──────────────────────┤         ├─────────────────┤
+│    trans_date   │         │ PK: failed_id        │         │ PK: session_id  │
+│    sms_received │         │    sms_content       │         │ FK: user_id     │
+│    processed_date│        │    sender_phone      │         │    ip_address   │
+└─────────────────┘         │    failure_reason    │         │    user_agent   │
+         ▲                  │    error_code        │         │    login_time   │
+         │ 1:M (receiver)   │    retry_count       │         │    last_activity│
+         │                  │    last_retry_date   │         │    is_active    │
+         │                  │    is_resolved       │         │    logout_time  │
+         └─────────────────►└──────────────────────┘         └─────────────────┘
+
+RELATIONSHIP DETAILS:
+====================
+
+1. USERS ↔ SERVICE_PROVIDERS (Many-to-Many) through USER_PROVIDER_ACCOUNTS
+   - Cardinality: M:N
+   - Business Rule: Users can have accounts with multiple providers
+   - Junction Table: user_provider_accounts
+
+2. USERS → TRANSACTIONS (One-to-Many) - Sender relationship
+   - Cardinality: 1:M
+   - Foreign Key: sender_id in TRANSACTIONS
+   - Business Rule: One user can send many transactions
+
+3. USERS → TRANSACTIONS (One-to-Many) - Receiver relationship  
+   - Cardinality: 1:M (Optional)
+   - Foreign Key: receiver_id in TRANSACTIONS (NULLABLE)
+   - Business Rule: One user can receive many transactions, external recipients allowed
+
+4. TRANSACTION_CATEGORIES → TRANSACTIONS (One-to-Many)
+   - Cardinality: 1:M
+   - Foreign Key: category_id in TRANSACTIONS
+   - Business Rule: One category can be used for many transactions
+
+5. SERVICE_PROVIDERS → TRANSACTIONS (One-to-Many)
+   - Cardinality: 1:M
+   - Foreign Key: provider_id in TRANSACTIONS
+   - Business Rule: One provider can process many transactions
+
+6. TRANSACTIONS → SYSTEM_LOGS (One-to-Many)
+   - Cardinality: 1:M (Optional)
+   - Foreign Key: transaction_id in SYSTEM_LOGS (NULLABLE)
+   - Business Rule: One transaction can have multiple log entries
+
+7. USERS → SYSTEM_LOGS (One-to-Many)
+   - Cardinality: 1:M (Optional)
+   - Foreign Key: user_id in SYSTEM_LOGS (NULLABLE)
+   - Business Rule: One user can have multiple log entries
+
+8. USERS → USER_SESSIONS (One-to-Many)
+   - Cardinality: 1:M
+   - Foreign Key: user_id in USER_SESSIONS
+   - Business Rule: One user can have multiple active sessions
+
+KEY DESIGN DECISIONS:
+====================
+
+✓ Many-to-Many Resolution: USER_PROVIDER_ACCOUNTS junction table properly resolves
+  the M:N relationship between users and service providers
+
+✓ Nullable Relationships: receiver_id in TRANSACTIONS allows for external recipients
+  who aren't registered users in our system
+
+✓ Audit Trail: SYSTEM_LOGS connected to both TRANSACTIONS and USERS for comprehensive
+  activity tracking
+
+✓ Error Tracking: FAILED_TRANSACTIONS as separate entity for SMS parsing failures
+
+✓ Session Management: USER_SESSIONS for web interface security tracking
+
+✓ Generated Columns: net_amount automatically calculated from amount - transaction_fee
+
+✓ Comprehensive Indexing: Strategic indexes on frequently queried columns for performance
+
+CONSTRAINT SUMMARY:
+==================
+- PRIMARY KEYS: All tables have appropriate primary keys
+- FOREIGN KEYS: All relationships properly constrained with referential integrity
+- UNIQUE CONSTRAINTS: phone_number, transaction_reference, provider_code, category_code
+- CHECK CONSTRAINTS: Amount validation, currency validation, balance consistency
+- NOT NULL: Required fields properly identified
+- DEFAULT VALUES: Appropriate defaults for status fields and timestamps
+
+This ERD represents our team's analysis of MoMo SMS transaction processing requirements
+and translates them into a normalized, scalable database design.
