@@ -1,7 +1,7 @@
 # MoMo SMS Data Processor
 
 ## Team Name  
-Group - 7 
+Group-7 -> Enterprise WEb Development
 
 ## Project Description  
 This project is part of our continuous formative assessment for Fullstack Development.  
