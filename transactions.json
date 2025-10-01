@@ -1,0 +1,252 @@
+[
+  {
+    "id": "1",
+    "type": "deposit",
+    "amount": 500.0,
+    "sender": "+1234567890",
+    "receiver": "+0987654321",
+    "timestamp": "2024-01-15T10:30:00Z",
+    "status": "completed",
+    "description": "Mobile money deposit"
+  },
+  {
+    "id": "2",
+    "type": "withdrawal",
+    "amount": 200.0,
+    "sender": "+0987654321",
+    "receiver": "+1234567890",
+    "timestamp": "2024-01-15T11:15:00Z",
+    "status": "completed",
+    "description": "ATM withdrawal"
+  },
+  {
+    "id": "3",
+    "type": "transfer",
+    "amount": 150.0,
+    "sender": "+1234567890",
+    "receiver": "+1122334455",
+    "timestamp": "2024-01-15T14:20:00Z",
+    "status": "completed",
+    "description": "Peer to peer transfer"
+  },
+  {
+    "id": "4",
+    "type": "deposit",
+    "amount": 1000.0,
+    "sender": "+1122334455",
+    "receiver": "+1122334455",
+    "timestamp": "2024-01-16T09:45:00Z",
+    "status": "completed",
+    "description": "Bank transfer deposit"
+  },
+  {
+    "id": "5",
+    "type": "payment",
+    "amount": 75.5,
+    "sender": "+1234567890",
+    "receiver": "+5566778899",
+    "timestamp": "2024-01-16T16:30:00Z",
+    "status": "completed",
+    "description": "Merchant payment"
+  },
+  {
+    "id": "6",
+    "type": "withdrawal",
+    "amount": 300.0,
+    "sender": "+1122334455",
+    "receiver": "+1122334455",
+    "timestamp": "2024-01-17T08:15:00Z",
+    "status": "completed",
+    "description": "ATM withdrawal"
+  },
+  {
+    "id": "7",
+    "type": "transfer",
+    "amount": 250.0,
+    "sender": "+5566778899",
+    "receiver": "+1234567890",
+    "timestamp": "2024-01-17T12:00:00Z",
+    "status": "completed",
+    "description": "Family transfer"
+  },
+  {
+    "id": "8",
+    "type": "deposit",
+    "amount": 750.0,
+    "sender": "+9988776655",
+    "receiver": "+9988776655",
+    "timestamp": "2024-01-18T10:20:00Z",
+    "status": "completed",
+    "description": "Salary deposit"
+  },
+  {
+    "id": "9",
+    "type": "payment",
+    "amount": 45.0,
+    "sender": "+1234567890",
+    "receiver": "+3344556677",
+    "timestamp": "2024-01-18T15:45:00Z",
+    "status": "completed",
+    "description": "Utility bill payment"
+  },
+  {
+    "id": "10",
+    "type": "withdrawal",
+    "amount": 100.0,
+    "sender": "+9988776655",
+    "receiver": "+9988776655",
+    "timestamp": "2024-01-19T07:30:00Z",
+    "status": "completed",
+    "description": "ATM withdrawal"
+  },
+  {
+    "id": "11",
+    "type": "transfer",
+    "amount": 500.0,
+    "sender": "+3344556677",
+    "receiver": "+5566778899",
+    "timestamp": "2024-01-19T13:15:00Z",
+    "status": "completed",
+    "description": "Business transfer"
+  },
+  {
+    "id": "12",
+    "type": "deposit",
+    "amount": 2000.0,
+    "sender": "+7788990011",
+    "receiver": "+7788990011",
+    "timestamp": "2024-01-20T11:00:00Z",
+    "status": "completed",
+    "description": "Investment deposit"
+  },
+  {
+    "id": "13",
+    "type": "payment",
+    "amount": 120.75,
+    "sender": "+5566778899",
+    "receiver": "+4455667788",
+    "timestamp": "2024-01-20T17:20:00Z",
+    "status": "completed",
+    "description": "Online purchase"
+  },
+  {
+    "id": "14",
+    "type": "withdrawal",
+    "amount": 400.0,
+    "sender": "+7788990011",
+    "receiver": "+7788990011",
+    "timestamp": "2024-01-21T09:45:00Z",
+    "status": "completed",
+    "description": "ATM withdrawal"
+  },
+  {
+    "id": "15",
+    "type": "transfer",
+    "amount": 80.0,
+    "sender": "+4455667788",
+    "receiver": "+1234567890",
+    "timestamp": "2024-01-21T14:30:00Z",
+    "status": "completed",
+    "description": "Friend transfer"
+  },
+  {
+    "id": "16",
+    "type": "deposit",
+    "amount": 1500.0,
+    "sender": "+2233445566",
+    "receiver": "+2233445566",
+    "timestamp": "2024-01-22T08:15:00Z",
+    "status": "completed",
+    "description": "Bonus deposit"
+  },
+  {
+    "id": "17",
+    "type": "payment",
+    "amount": 65.25,
+    "sender": "+1234567890",
+    "receiver": "+6677889900",
+    "timestamp": "2024-01-22T16:00:00Z",
+    "status": "completed",
+    "description": "Subscription payment"
+  },
+  {
+    "id": "18",
+    "type": "withdrawal",
+    "amount": 180.0,
+    "sender": "+2233445566",
+    "receiver": "+2233445566",
+    "timestamp": "2024-01-23T12:30:00Z",
+    "status": "completed",
+    "description": "ATM withdrawal"
+  },
+  {
+    "id": "19",
+    "type": "transfer",
+    "amount": 350.0,
+    "sender": "+6677889900",
+    "receiver": "+1122334455",
+    "timestamp": "2024-01-23T18:45:00Z",
+    "status": "completed",
+    "description": "Rent payment"
+  },
+  {
+    "id": "20",
+    "type": "deposit",
+    "amount": 3000.0,
+    "sender": "+8899001122",
+    "receiver": "+8899001122",
+    "timestamp": "2024-01-24T10:00:00Z",
+    "status": "completed",
+    "description": "Large deposit"
+  },
+  {
+    "id": "21",
+    "type": "payment",
+    "amount": 95.5,
+    "sender": "+1122334455",
+    "receiver": "+3344556677",
+    "timestamp": "2024-01-24T15:15:00Z",
+    "status": "completed",
+    "description": "Service payment"
+  },
+  {
+    "id": "22",
+    "type": "withdrawal",
+    "amount": 250.0,
+    "sender": "+8899001122",
+    "receiver": "+8899001122",
+    "timestamp": "2024-01-25T07:00:00Z",
+    "status": "completed",
+    "description": "ATM withdrawal"
+  },
+  {
+    "id": "23",
+    "type": "transfer",
+    "amount": 600.0,
+    "sender": "+3344556677",
+    "receiver": "+5566778899",
+    "timestamp": "2024-01-25T11:30:00Z",
+    "status": "completed",
+    "description": "Business payment"
+  },
+  {
+    "id": "24",
+    "type": "deposit",
+    "amount": 800.0,
+    "sender": "+5566778899",
+    "receiver": "+5566778899",
+    "timestamp": "2024-01-26T09:20:00Z",
+    "status": "completed",
+    "description": "Refund deposit"
+  },
+  {
+    "id": "25",
+    "type": "payment",
+    "amount": 55.0,
+    "sender": "+8899001122",
+    "receiver": "+4455667788",
+    "timestamp": "2024-01-26T14:45:00Z",
+    "status": "completed",
+    "description": "Small payment"
+  }
+]
