@@ -1,51 +1,88 @@
-"""
-MoMo SMS REST API Server
-Implements CRUD operations with Basic Authentication
-"""
-
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import json
 import xml.etree.ElementTree as ET
-from urllib.parse import urlparse, parse_qs
-import sys
+from urllib.parse import urlparse
+import base64
 import os
 
-# Add parent directory to path for imports
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Configuration
+USERNAME = 'admin'
+PASSWORD = 'password123'
 
-from api.auth import authenticate
-
-# In-memory storage (simulating database)
-# In production, use actual database
+# In-memory storage
 transactions = []
 next_id = 1
+
+def authenticate(auth_header):
+    """
+    Verify Basic Authentication credentials
+    
+    Args:
+        auth_header: Authorization header value
+        
+    Returns:
+        bool: True if authenticated, False otherwise
+    """
+    if not auth_header:
+        return False
+    
+    try:
+        # Extract credentials from "Basic base64string"
+        auth_type, credentials = auth_header.split(' ', 1)
+        
+        if auth_type.lower() != 'basic':
+            return False
+        
+        # Decode base64
+        decoded = base64.b64decode(credentials).decode('utf-8')
+        username, password = decoded.split(':', 1)
+        
+        # Verify credentials
+        return username == USERNAME and password == PASSWORD
+        
+    except Exception:
+        return False
 
 def load_transactions_from_xml(filename='modified_sms_v2.xml'):
     """Load transactions from XML file into memory"""
     global transactions, next_id
     
-    try:
-        tree = ET.parse(filename)
-        root = tree.getroot()
-        
-        for trans in root.findall('transaction'):
-            transaction = {
-                'id': trans.get('id'),
-                'type': trans.find('type').text,
-                'amount': float(trans.find('amount').text),
-                'sender': trans.find('sender').text,
-                'receiver': trans.find('receiver').text,
-                'timestamp': trans.find('timestamp').text,
-                'status': trans.find('status').text,
-                'description': trans.find('description').text
-            }
-            transactions.append(transaction)
-        
-        next_id = len(transactions) + 1
-        print(f"✓ Loaded {len(transactions)} transactions from XML")
-        
-    except Exception as e:
-        print(f"Error loading XML: {e}")
+    # Try current directory first, then parent directory
+    xml_paths = [
+        filename,
+        os.path.join('..', filename),
+        os.path.join(os.path.dirname(os.path.dirname(__file__)), filename)
+    ]
+    
+    for xml_path in xml_paths:
+        if os.path.exists(xml_path):
+            try:
+                tree = ET.parse(xml_path)
+                root = tree.getroot()
+                
+                for trans in root.findall('transaction'):
+                    transaction = {
+                        'id': trans.get('id'),
+                        'type': trans.find('type').text,
+                        'amount': float(trans.find('amount').text),
+                        'sender': trans.find('sender').text,
+                        'receiver': trans.find('receiver').text,
+                        'timestamp': trans.find('timestamp').text,
+                        'status': trans.find('status').text,
+                        'description': trans.find('description').text
+                    }
+                    transactions.append(transaction)
+                
+                next_id = len(transactions) + 1
+                print(f"✓ Loaded {len(transactions)} transactions from XML")
+                return
+                
+            except Exception as e:
+                print(f"Error loading XML from {xml_path}: {e}")
+                continue
+    
+    print(f"⚠ Warning: Could not find {filename} in any expected location")
+    print("Server will start with empty dataset")
 
 class APIHandler(BaseHTTPRequestHandler):
     """Handle HTTP requests for the MoMo SMS API"""
@@ -218,8 +255,8 @@ class APIHandler(BaseHTTPRequestHandler):
                 body = self.rfile.read(content_length)
                 data = json.loads(body.decode())
                 
-                # Update fields
-                updatable = ['type', 'amount', 'sender', 'receiver', 'status', 'description']
+                # Update fields (don't allow ID changes)
+                updatable = ['type', 'amount', 'sender', 'receiver', 'timestamp', 'status', 'description']
                 for field in updatable:
                     if field in data:
                         if field == 'amount':
@@ -302,8 +339,8 @@ def run_server(port=8000):
     print(f"  PUT    /transactions/{{id}}  - Update transaction")
     print(f"  DELETE /transactions/{{id}}  - Delete transaction")
     print(f"\nAuthentication:")
-    print(f"  Username: admin")
-    print(f"  Password: password123")
+    print(f"  Username: {USERNAME}")
+    print(f"  Password: {PASSWORD}")
     print(f"\nPress Ctrl+C to stop the server")
     print(f"{'='*60}\n")
     
