@@ -1,0 +1,255 @@
+/* Reset & base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: #f4f6f8;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    background: #1f2a38;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    position: fixed;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.sidebar h2 {
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.sidebar a {
+    color: #b8c7ce;
+    padding: 12px 15px;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.sidebar a:hover {
+    background: #2a3b4c;
+    color: #fff;
+}
+
+/* Main content */
+.main-content {
+    margin-left: 240px;
+    flex: 1;
+    padding: 30px;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #1f2a38;
+}
+
+/* Summary Cards */
+.summary-cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: #fff;
+    flex: 1;
+    min-width: 200px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666;
+}
+
+.card p {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+/* Filters */
+.filters {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.filters label, .filters select, .filters input, .filters button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.filters button {
+    background: #4a90e2;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.filters button:hover {
+    background: #357ab7;
+}
+
+/* Chart container */
+.chart-container {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    margin-bottom: 40px;
+    transition: all 0.3s ease;
+}
+
+.chart-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+.chart-container h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1f2a38;
+    margin-bottom: 15px;
+}
+
+/* Table */
+.table-container {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+}
+
+thead {
+    background: #4a90e2;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+    transition: background 0.3s ease;
+}
+
+tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+tr:hover {
+    background: #d1ecf1;
+}
+
+/* Footer */
+footer {
+    background: #1f2a38;
+    color: #fff;
+    text-align: center;
+    padding: 15px 20px;
+    margin-top: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .main-content {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .summary-cards {
+        flex-direction: column;
+    }
+
+    .chart-container {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .sidebar h2 {
+        margin-bottom: 15px;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    footer {
+        font-size: 0.85rem;
+        padding: 12px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .filters {
+        flex-direction: column;
+    }
+
+    .filters label, .filters select, .filters input, .filters button {
+        width: 100%;
+    }
+}

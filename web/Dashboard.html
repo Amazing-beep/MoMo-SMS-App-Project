@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Momo Dashboard</h2>
+        <a href="Dashboard.html" class="active">Dashboard</a>
+        <a href="transactions.html">Transactions</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="settings.html">Settings</a>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h1>Dashboard Overview</h1>
+        </header>
+
+        <div class="summary-cards">
+            <div class="card">
+                <h3>Total Transactions</h3>
+                <p id="totalTransactions">0</p>
+            </div>
+            <div class="card">
+                <h3>Total Amount</h3>
+                <p id="totalAmount">0</p>
+            </div>
+    
+        </div>
+
+        <div class="chart-container">
+            <canvas id="transactionChart"></canvas>
+        </div>
+    </div>
+   
+    <footer>
+        <p>&copy; 2025 Momo Dashboard | Built for MoMo SMS Data Analysis</p>
+    </footer>
+    <script src="chart_handler.js"></script>
+</body>
+</html>
