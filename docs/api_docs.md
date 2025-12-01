@@ -1,262 +1,220 @@
-# SMS Transactions REST API Documentation
+## API Documentation (Endpoint Focus)
 
-## Overview
-This REST API provides CRUD operations for SMS transaction data. It uses Basic Authentication and returns JSON responses.
+All examples assume:
 
-**Base URL:** `http://localhost:8000`  
-**Authentication:** Basic Auth (username: `admin`, password: `password`)
+- Base URL: `http://localhost:8000`
+- Basic Auth header present: `Authorization: Basic <base64(admin:secret)>`
+- Header for JSON bodies: `Content-Type: application/json`
 
-## Authentication
-All endpoints require Basic Authentication. Include the Authorization header in your requests:
+---
 
-```
-Authorization: Basic YWRtaW46cGFzc3dvcmQ=
-```
+### 1) List Transactions
 
-The encoded string above represents `admin:password` in base64.
+- Endpoint & Method: `GET /transactions`
 
-## Endpoints
+- Request Example:
 
-### 1. GET /transactions
-**Description:** Retrieve all SMS transactions
-
-**Request:**
 ```bash
-curl -X GET http://localhost:8000/transactions \
-  -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ="
+curl -H "Authorization: Basic $BASIC" http://localhost:8000/transactions
 ```
 
-**Response (200 OK):**
+- Response Example (200 OK):
+
 ```json
 [
   {
     "id": 1,
-    "sender": "John Doe",
-    "recipient": "Jane Smith",
-    "message": "Hello, how are you today?",
-    "timestamp": "2024-01-15 10:30:00",
-    "amount": 0.00,
-    "status": "sent"
-  },
-  {
-    "id": 2,
-    "sender": "Alice Johnson",
-    "recipient": "Bob Wilson",
-    "message": "Meeting at 2 PM today",
-    "timestamp": "2024-01-15 11:45:00",
-    "amount": 0.00,
-    "status": "delivered"
+    "sms_address": "MTN",
+    "sms_date": "2025-09-19T12:00:00+00:00",
+    "sms_type": "SMS",
+    "sms_body": "You have received 1,000 RWF",
+    "transaction_type": "money_in",
+    "amount": 1000,
+    "currency": "RWF",
+    "sender": null,
+    "receiver": null,
+    "balance": null,
+    "fee": 0,
+    "transaction_id": "12345",
+    "external_transaction_id": null,
+    "message": "You have received 1,000 RWF",
+    "readable_date": "2025-09-19 12:00",
+    "contact_name": null,
+    "raw_json": { "source": "sms" }
   }
 ]
 ```
 
-### 2. GET /transactions/{id}
-**Description:** Retrieve a specific SMS transaction by ID
+- Error Codes:
+  - 401 Unauthorized: Missing/invalid Basic Auth header
 
-**Request:**
+---
+
+### 2) Get Transaction by ID
+
+- Endpoint & Method: `GET /transactions/{id}`
+
+- Request Example:
+
 ```bash
-curl -X GET http://localhost:8000/transactions/1 \
-  -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ="
+curl -H "Authorization: Basic $BASIC" http://localhost:8000/transactions/1
 ```
 
-**Response (200 OK):**
+- Response Example (200 OK):
+
 ```json
 {
   "id": 1,
-  "sender": "John Doe",
-  "recipient": "Jane Smith",
-  "message": "Hello, how are you today?",
-  "timestamp": "2024-01-15 10:30:00",
-  "amount": 0.00,
-  "status": "sent"
+  "sms_address": "MTN",
+  "sms_date": "2025-09-19T12:00:00+00:00",
+  "sms_type": "SMS",
+  "sms_body": "You have received 1,000 RWF",
+  "transaction_type": "money_in",
+  "amount": 1000,
+  "currency": "RWF",
+  "sender": null,
+  "receiver": null,
+  "balance": null,
+  "fee": 0,
+  "transaction_id": "12345",
+  "external_transaction_id": null,
+  "message": "You have received 1,000 RWF",
+  "readable_date": "2025-09-19 12:00",
+  "contact_name": null,
+  "raw_json": { "source": "sms" }
 }
 ```
 
-**Response (404 Not Found):**
-```json
-{
-  "error": "Transaction not found"
-}
-```
+- Error Codes:
+  - 401 Unauthorized: Missing/invalid Basic Auth header
+  - 404 Not Found: No transaction with that id
 
-### 3. POST /transactions
-**Description:** Create a new SMS transaction
+---
 
-**Request:**
+### 3) Create Transaction
+
+- Endpoint & Method: `POST /transactions`
+
+- Request Example:
+
 ```bash
-curl -X POST http://localhost:8000/transactions \
-  -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" \
+curl -X POST \
+  -H "Authorization: Basic $BASIC" \
   -H "Content-Type: application/json" \
   -d '{
-    "sender": "New User",
-    "recipient": "Another User",
-    "message": "This is a new message",
-    "timestamp": "2024-01-16 12:00:00",
-    "amount": 5.50,
-    "status": "sent"
-  }'
+    "sms_address": "MTN",
+    "sms_date": "2025-09-19T12:00:00Z",
+    "sms_type": "SMS",
+    "sms_body": "You have received 1,000 RWF",
+    "transaction_type": "money_in",
+    "amount": 1000,
+    "currency": "RWF",
+    "message": "You have received 1,000 RWF",
+    "raw_json": {"source": "manual"}
+  }' \
+  http://localhost:8000/transactions
 ```
 
-**Response (201 Created):**
+- Response Example (201 Created):
+
 ```json
 {
-  "id": 26,
-  "sender": "New User",
-  "recipient": "Another User",
-  "message": "This is a new message",
-  "timestamp": "2024-01-16 12:00:00",
-  "amount": 5.50,
-  "status": "sent"
+  "id": 101,
+  "sms_address": "MTN",
+  "sms_date": "2025-09-19T12:00:00+00:00",
+  "sms_type": "SMS",
+  "sms_body": "You have received 1,000 RWF",
+  "transaction_type": "money_in",
+  "amount": 1000,
+  "currency": "RWF",
+  "sender": null,
+  "receiver": null,
+  "balance": null,
+  "fee": 0,
+  "transaction_id": null,
+  "external_transaction_id": null,
+  "message": "You have received 1,000 RWF",
+  "readable_date": null,
+  "contact_name": null,
+  "raw_json": { "source": "manual" }
 }
 ```
 
-**Response (400 Bad Request):**
-```json
-{
-  "error": "Missing required fields"
-}
-```
+- Error Codes:
+  - 400 Bad Request: Invalid/missing fields
+  - 401 Unauthorized: Missing/invalid Basic Auth header
 
-### 4. PUT /transactions/{id}
-**Description:** Update an existing SMS transaction
+---
 
-**Request:**
+### 4) Update Transaction
+
+- Endpoint & Method: `PUT /transactions/{id}`
+
+- Request Example (partial update):
+
 ```bash
-curl -X PUT http://localhost:8000/transactions/1 \
-  -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" \
+curl -X PUT \
+  -H "Authorization: Basic $BASIC" \
   -H "Content-Type: application/json" \
-  -d '{
-    "sender": "John Doe Updated",
-    "recipient": "Jane Smith",
-    "message": "Updated message content",
-    "timestamp": "2024-01-15 10:30:00",
-    "amount": 0.00,
-    "status": "delivered"
-  }'
+  -d '{"amount": 1500, "fee": 20}' \
+  http://localhost:8000/transactions/1
 ```
 
-**Response (200 OK):**
+- Response Example (200 OK):
+
 ```json
 {
   "id": 1,
-  "sender": "John Doe Updated",
-  "recipient": "Jane Smith",
-  "message": "Updated message content",
-  "timestamp": "2024-01-15 10:30:00",
-  "amount": 0.00,
-  "status": "delivered"
+  "sms_address": "MTN",
+  "sms_date": "2025-09-19T12:00:00+00:00",
+  "sms_type": "SMS",
+  "sms_body": "You have received 1,000 RWF",
+  "transaction_type": "money_in",
+  "amount": 1500,
+  "currency": "RWF",
+  "sender": null,
+  "receiver": null,
+  "balance": null,
+  "fee": 20,
+  "transaction_id": "12345",
+  "external_transaction_id": null,
+  "message": "You have received 1,000 RWF",
+  "readable_date": "2025-09-19 12:00",
+  "contact_name": null,
+  "raw_json": { "source": "sms" }
 }
 ```
 
-**Response (404 Not Found):**
-```json
-{
-  "error": "Transaction not found"
-}
-```
+- Error Codes:
+  - 400 Bad Request: Invalid field types
+  - 401 Unauthorized: Missing/invalid Basic Auth header
+  - 404 Not Found: No transaction with that id
 
-### 5. DELETE /transactions/{id}
-**Description:** Delete an SMS transaction
+---
 
-**Request:**
+### 5) Delete Transaction
+
+- Endpoint & Method: `DELETE /transactions/{id}`
+
+- Request Example:
+
 ```bash
-curl -X DELETE http://localhost:8000/transactions/1 \
-  -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ="
+curl -X DELETE -H "Authorization: Basic $BASIC" http://localhost:8000/transactions/1
 ```
 
-**Response (200 OK):**
-```json
-{
-  "message": "Transaction deleted",
-  "deleted": {
-    "id": 1,
-    "sender": "John Doe",
-    "recipient": "Jane Smith",
-    "message": "Hello, how are you today?",
-    "timestamp": "2024-01-15 10:30:00",
-    "amount": 0.00,
-    "status": "sent"
-  }
-}
+- Response Example (204 No Content):
+
+```
+<empty body>
 ```
 
-**Response (404 Not Found):**
-```json
-{
-  "error": "Transaction not found"
-}
-```
+- Error Codes:
+  - 401 Unauthorized: Missing/invalid Basic Auth header
+  - 404 Not Found: No transaction with that id
 
-## Error Codes
+---
 
-| Code | Description | Example Response |
-|------|-------------|------------------|
-| 200  | Success     | Transaction data |
-| 201  | Created     | New transaction data |
-| 400  | Bad Request | `{"error": "Invalid transaction ID"}` |
-| 401  | Unauthorized | `{"error": "Unauthorized", "message": "Invalid credentials"}` |
-| 404  | Not Found   | `{"error": "Transaction not found"}` |
+Notes:
 
-## Data Model
-
-### Transaction Object
-```json
-{
-  "id": 1,                    // Integer (auto-generated for POST)
-  "sender": "John Doe",       // String (required)
-  "recipient": "Jane Smith",  // String (required)
-  "message": "Hello...",      // String (required)
-  "timestamp": "2024-01-15 10:30:00", // String (required)
-  "amount": 0.00,             // Float (required)
-  "status": "sent"            // String (required)
-}
-```
-
-## Testing Examples
-
-### Using curl (Command Line)
-```bash
-# Get all transactions
-curl -X GET http://localhost:8000/transactions \
-  -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ="
-
-# Get specific transaction
-curl -X GET http://localhost:8000/transactions/1 \
-  -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ="
-
-# Create new transaction
-curl -X POST http://localhost:8000/transactions \
-  -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" \
-  -H "Content-Type: application/json" \
-  -d '{"sender":"Test","recipient":"User","message":"Test message","timestamp":"2024-01-16 12:00:00","amount":0.00,"status":"sent"}'
-
-# Update transaction
-curl -X PUT http://localhost:8000/transactions/1 \
-  -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" \
-  -H "Content-Type: application/json" \
-  -d '{"sender":"Updated","recipient":"User","message":"Updated message","timestamp":"2024-01-16 12:00:00","amount":0.00,"status":"delivered"}'
-
-# Delete transaction
-curl -X DELETE http://localhost:8000/transactions/1 \
-  -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ="
-```
-
-### Using Postman
-1. Set Base URL: `http://localhost:8000`
-2. Add Authorization: Basic Auth (Username: `admin`, Password: `password`)
-3. Set Content-Type: `application/json` for POST/PUT requests
-4. Use the endpoint paths and request bodies from the examples above
-
-## Security Notes
-
-**Basic Authentication Limitations:**
-- Credentials are sent in every request (base64 encoded, not encrypted)
-- No session management or token expiration
-- Credentials can be easily decoded from base64
-- No protection against replay attacks
-
-**Recommended Alternatives:**
-- **JWT (JSON Web Tokens):** Stateless, secure token-based authentication
-- **OAuth2:** Industry standard for authorization
-- **API Keys:** Simple but more secure than Basic Auth
-- **Session-based Auth:** Server-side session management
+- `id` is assigned by the database on create.
+- Always send the Basic Auth header; otherwise the API returns 401.
