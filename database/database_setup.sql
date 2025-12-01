@@ -1,19 +1,11 @@
+-- drop old tables if they exist
+DROP TABLE IF EXISTS system_logs;
+DROP TABLE IF EXISTS transaction_participants;
+DROP TABLE IF EXISTS transactions;
+DROP TABLE IF EXISTS transaction_categories;
+DROP TABLE IF EXISTS users;
 
--- =====================================================
--- MoMo SMS Data Processing System Database Setup
--- =====================================================
-
--- Create database if not exists
-CREATE DATABASE IF NOT EXISTS momo_sms_processor;
-USE momo_sms_processor;
-
-
--- CORE ENTITIES
-
-
--- Users/Customers Table
--- Stores information about transaction participants (senders and receivers)
->>>>>>> 256b99d (updates)
+-- users table
 CREATE TABLE users (
   user_id INT AUTO_INCREMENT PRIMARY KEY,
   phone_number VARCHAR(20),
