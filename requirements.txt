@@ -1,0 +1,9 @@
+lxml
+python-dateutil
+fastapi
+uvicorn
+httpx
+pydantic
+pytest
+pytest-asyncio
+# pytest-mockls
